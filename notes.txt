@@ -1,0 +1,44 @@
+#!/bin/bash
+# Regex + grep cheat-sheet
+
+# ^  → beginning of line
+grep '^ERROR' logfile.txt
+
+# $  → end of line
+grep 'success$' logfile.txt
+
+# .  → any single character
+grep 'c.t' words.txt   # matches cat, cot, cut
+
+# *  → zero or more of preceding char
+grep 'fo*' words.txt   # matches f, fo, foo, fooo
+
+# +  → one or more of preceding char (use -E)
+grep -E 'fo+' words.txt
+
+# ?  → zero or one of preceding char (use -E)
+grep -E 'colou?r' words.txt   # matches color or colour
+
+# [] → character class
+grep '[0-9]' logfile.txt      # matches any digit
+
+# [^ ] → negated character class
+grep '[^0-9]' logfile.txt     # matches non-digit
+
+# |  → OR (use -E)
+grep -E 'cat|dog' words.txt
+
+# \b → word boundary
+grep -E '\berror\b' logfile.txt
+
+# \s → whitespace (use -P for Perl regex)
+grep -P '\s+' logfile.txt
+
+# \d → digit (use -P)
+grep -P '\d{3}' logfile.txt   # matches 3 digits
+
+# {n} → exact repetition
+grep -E 'a{3}' words.txt      # matches aaa
+
+# {n,m} → range repetition
+grep -E '[0-9]{2,4}' logfile.txt   # matches 2 to 4 digits
