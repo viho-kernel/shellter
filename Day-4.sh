@@ -16,7 +16,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
-LOG_DIR="/home/ec2-user/log/"
+LOG_DIR="/home/ec2-user/log"
 LOG_FILE="${LOG_DIR}/disk_health.log"
 
 log_message() {
