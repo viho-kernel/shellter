@@ -60,6 +60,6 @@ while [ $COUNT -le $((TOTAL+2)) ]; do
    USAGE=$(df -h | awk "NR==2 {print \$5}" | sed 's/%//')
 
    check_usage "$USAGE" "$MOUNTPOINT" "$FILESYSTEM"
-   COUNT=$(COUNT+1)
+   COUNT=$((COUNT+1))
 done
     
