@@ -9,7 +9,7 @@
 
 set -euo pipefail
 
-CONFIG_FILE="/home/ec2-user/disk_check.conf"
+CONFIG_FILE="/home/ec2-user/shellter/disk_check.conf"
 #checking if file is presnt or not
 if [ -f "$CONFIG_FILE" ]; then
    source "$CONFIG_FILE"
