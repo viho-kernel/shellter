@@ -8,60 +8,59 @@
 ##########################################
 
 set -euo pipefail
-
-CONFIG_FILE="/home/ec2-user/shellter/disk_check.conf"
-#checking if file is presnt or not
-if [ -f "$CONFIG_FILE" ]; then
-   source "$CONFIG_FILE"
-else 
-   echo "Config file not found: $CONFIG_FILE"
-   exit 1
-fi
-
-# --- Colors ---
+CONFIG_MAP="/home/ec2-user/shellter/disk_check.conf"
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m'
+THRESHOLD=10
+COUNT=2
+
+TOTAL=$(df -h | tail -n +2 | wc -l)
+
+#checking CONFIG_MAP present or not
+
+if [ -f "$CONFIG_MAP" ]; then
+  echo "Config map found"
+  source $CONFIG_MAP
+else
+  echo " ${RED} Error: ${NC} CONFIG_MAP file not found "
+  exit 1
+fi
 
 log_message() {
-    local level="$1"
-    local message="$2"
+
+    local INFO=$1
+    local message=$2
     local timestamp
     timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-    echo "[$timestamp] $level: $message" >> "$LOG_FILE"
-
+    echo "[$timestamp] $INFO: $message" >> "$LOG_FILE"
 }
 
 check_usage() {
-    local filesystem="$1"
-    local mountpoint="$2"
-    local usage="$3"
+      local filesystem="$1"
+  local mountpoint="$2"
+  local usage="$3"
 
-    echo "Current Disk usage on $filesystem mounted on $mountpoint : $usage%"
+  echo "Current Disk usage on the ${filesystem} mounted on ${mountpoint} is ${usage} "
 
-    if [ "$usage" -gt "$THRESHOLD" ]; then
-        echo -e "⚠️ ${RED}Warning${NC}: Usage is above threshold"
-        log_message "WARNING" "$filesystem ($mountpoint) usage $usage%"
-    else
-        echo -e "${GREEN}Disk is under threshold ✅${NC}"
-        log_message "OK" "$filesystem ($mountpoint) usage $usage%"
+  if [ "$usage" -gt "$THRESHOLD" ]; then
+    echo -e " ${RED} Warning ${NC}: The usage is above the threshold!, take necessry action "
+    log_message "WARNING" "$filesystem on $mountpoint usage is $usage%"
+
+  else
+    echo -e "${GREEN}Disk is under threshold ✅${NC}"
+        log_message "OK" "$filesystem on $mountpoint usage is $usage%"
     fi
-
 }
 
-echo "Disk check started"
+echo "===Disk usage check started==="
+while [ $COUNT -ge $((TOTAL+2)) ]; do
+   FILESYSTEM=$(df -h | awk 'NR==2 {print \$1}')
+   MOUNTPOINT=$(df -h | awk 'NR==2 {print \$6}')
+   USAGE=$(df -h | awk 'NR==2 {print \$5}' | sed 's/%//')
 
-TOTAL=$(df -h | tail -n +2 | wc -l)
-COUNT=2
+   check_usage "$USAGE" "$MOUNTPOINT" "$FILESYSTEM"
 
-while [ $COUNT -le $((TOTAL+1)) ]; do
-  USAGE=$(df -h | awk "NR==$COUNT {print \$5}" | sed 's/%//')
-  FILESYSTEM=$(df -h | awk "NR==$COUNT {print \$1}")
-  MOUNTPOINT=$(df -h | awk "NR==$COUNT {print \$6}")
-
-    check_usage "$FILESYSTEM" "$MOUNTPOINT" "$USAGE"
-
-    COUNT=$((COUNT+1))
+   COUNT=$(COUNT+1)
 done
-
-echo "=== Disk Check Completed ==="
+    
