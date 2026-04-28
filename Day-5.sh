@@ -9,17 +9,12 @@
 
 set -euo pipefail
 
-THRESHOLD=15
-LOG_FILE=/home/ec2-user/disk_check.log
-
 CONFIG_FILE="/home/ec2-user/disk_check.conf"
 #checking if file is presnt or not
 if [ -f "$CONFIG_FILE" ]; then
    source "$CONFIG_FILE"
 else 
    echo "Config file not found: $CONFIG_FILE"
-   touch "/home/ec2-user/disk_check.conf"
-   echo "Config file created succsfully"
 fi
 
 # --- Colors ---
