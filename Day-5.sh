@@ -57,7 +57,7 @@ echo "===Disk usage check started==="
 while [ $COUNT -le $((TOTAL+2)) ]; do
    FILESYSTEM=$(df -h | awk "NR==2 {print \$1}")
    MOUNTPOINT=$(df -h | awk "NR==2 {print \$6}")
-   USAGE=$(df -h | awk 'NR==2 {print \$5}' | sed 's/%//')
+   USAGE=$(df -h | awk "NR==2 {print \$5}" | sed 's/%//')
 
    check_usage "$USAGE" "$MOUNTPOINT" "$FILESYSTEM"
    COUNT=$(COUNT+1)
