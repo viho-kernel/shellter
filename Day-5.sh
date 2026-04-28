@@ -18,10 +18,8 @@ if [ -f "$CONFIG_FILE" ]; then
    source "$CONFIG_FILE"
 else 
    echo "Config file not found: $CONFIG_FILE"
-   touch -p "/home/ec2-user/disk_check.conf"
+   touch "/home/ec2-user/disk_check.conf"
    echo "Config file created succsfully"
-   source "$CONFIG_FILE"
-   exit 0
 fi
 
 # --- Colors ---
