@@ -45,8 +45,7 @@ check_usage() {
     fi
 }
 
-echo "=======Disk check started ====="
-
+echo "=== Disk Check Started ==="
 TOTAL=$(df -h | tail -n +2 | wc -l)
 COUNT=2
 
@@ -59,6 +58,5 @@ while [ $COUNT -le $((TOTAL+1)) ]; do
 
     COUNT=$((COUNT+1))
 done
-
 
 echo "=== Disk Check Completed ==="
