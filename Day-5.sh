@@ -55,13 +55,13 @@ check_usage() {
 
 echo "Disk check started"
 
-TOTAL=$(df -h / | tail -n +2 | wc -l)
+TOTAL=$(df -h | tail -n +2 | wc -l)
 COUNT=2
 
 while [ $COUNT -le $((TOTAL+1)) ]; do
   USAGE=$(df -h | awk "NR==$COUNT {print \$5}" | sed 's/%//')
-    FILESYSTEM=$(df -h | awk "NR==$COUNT {print \$1}")
-    MOUNTPOINT=$(df -h | awk "NR==$COUNT {print \$6}")
+  FILESYSTEM=$(df -h | awk "NR==$COUNT {print \$1}")
+  MOUNTPOINT=$(df -h | awk "NR==$COUNT {print \$6}")
 
     check_usage "$FILESYSTEM" "$MOUNTPOINT" "$USAGE"
 
