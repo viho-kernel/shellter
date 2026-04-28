@@ -15,6 +15,7 @@ if [ -f "$CONFIG_FILE" ]; then
    source "$CONFIG_FILE"
 else 
    echo "Config file not found: $CONFIG_FILE"
+   exit 1
 fi
 
 # --- Colors ---
