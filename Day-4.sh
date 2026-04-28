@@ -45,8 +45,6 @@ check_usage() {
     fi
 }
 
-#-- Main workflow --
-
 echo "=======Disk check started ====="
 
 TOTAL=$(df -h | tail -n +2 | wc -l)
