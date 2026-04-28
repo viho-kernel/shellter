@@ -7,7 +7,7 @@
 # Date: 2026-04-28
 ##########################################
 
-set -euo piepfail
+set -euo pipefail
 
 #Varibales
 
