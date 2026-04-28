@@ -3,7 +3,7 @@
 # Script: Day2.sh
 # Author: Vihari
 # Purpose: Disk Usage Warning
-# Version: 1.0
+# Version: 1.0.2
 # Date: 2026-04-27
 ##########################################
 

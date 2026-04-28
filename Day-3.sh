@@ -3,7 +3,7 @@
 # Script: Day3.sh
 # Author: Vihari
 # Purpose: Disk Usage Warning with Logging
-# Version: 1.0
+# Version: 1.0.3
 # Date: 2026-04-28
 ##########################################
 

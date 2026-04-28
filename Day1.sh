@@ -3,7 +3,7 @@
 # Script: Day1.sh
 # Author: Vihari
 # Purpose: To check the Disk space
-# Version: 1.0
+# Version: 1.0.0
 # Date: 2026-04-26
 ##########################################
 
